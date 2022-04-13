@@ -67,7 +67,21 @@ def pregunta_03():
     Name: _c1, dtype: int64
 
     """
-    return
+    import pandas as pd
+
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
+    tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
+
+
+    #utilizo value_counts() para contar las veces que esta cada letra
+    #utilizo sort_index() para ordenar alfabeticamente, puede ser ascending true o false
+    #si quisiera ordenarlos numericamente pongo ascending true o false en los parentesis de value_count()
+    sum_c1= tbl0['_c1'].value_counts().sort_index(ascending=True)
+
+
+    return sum_c1
 
 
 def pregunta_04():
