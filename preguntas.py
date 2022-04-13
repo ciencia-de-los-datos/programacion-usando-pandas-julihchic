@@ -207,7 +207,20 @@ def pregunta_08():
     39   39   E    5  1998-01-26    44
 
     """
-    return
+    import pandas as pd
+
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
+    tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
+
+    df=tbl0.copy()
+
+    #al df original le creo la columna con la funcion sum y le pongo axis=1 para que aplique la funcion en las columnas
+    df['suma']=df.sum(axis=1)
+
+    
+    return df
 
 
 def pregunta_09():
