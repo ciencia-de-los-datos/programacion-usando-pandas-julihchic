@@ -96,7 +96,18 @@ def pregunta_04():
     E    4.785714
     Name: _c2, dtype: float64
     """
-    return
+    import pandas as pd
+
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
+    tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
+
+    #hago groupby para traer los de _c2  
+    #pongo la funcion luego de los corchetes de la columna a la que se la quiero hacer
+    prom_c2 = tbl0.groupby('_c1')['_c2'].mean()
+
+    return prom_c2
 
 
 def pregunta_05():
@@ -113,8 +124,17 @@ def pregunta_05():
     E    9
     Name: _c2, dtype: int64
     """
-    return
+    import pandas as pd
 
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
+    tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
+
+    #hago groupby para traer los de _c2  
+    #pongo la funcion luego de los corchetes de la columna a la que se la quiero hacer
+    prom_c2 = tbl0.groupby('_c1')['_c2'].max()
+    return prom_c2
 
 def pregunta_06():
     """
@@ -125,7 +145,23 @@ def pregunta_06():
     ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 
     """
-    return
+    import pandas as pd
+
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
+    tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
+
+    #creo una copia de la base
+    data=tbl1.copy('_c4')
+
+    #en la copia pongo en mayusculas los elementos de la columna _c4
+    data['_c4']= data['_c4'].str.upper()
+
+    data
+
+    #los ordeno con sorted y le quito duplicados con .unique
+    return sorted(data['_c4'].unique())
 
 
 def pregunta_07():
@@ -141,7 +177,19 @@ def pregunta_07():
     E    67
     Name: _c2, dtype: int64
     """
-    return
+    import pandas as pd
+
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
+    tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
+
+    #hago groupby para traer los de _c2  
+    #pongo la funcion sum luego de los corchetes de la columna a la que se la quiero hacer
+    prom_c2 = tbl0.groupby('_c1')['_c2'].sum()
+
+    
+    return prom_c2
 
 
 def pregunta_08():
