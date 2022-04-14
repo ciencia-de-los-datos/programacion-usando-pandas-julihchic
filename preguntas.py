@@ -238,7 +238,20 @@ def pregunta_09():
     39   39   E    5  1998-01-26  1998
 
     """
-    return
+    import pandas as pd
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
+    tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
+
+    #creo una copia de la tabla
+    df=tbl0.copy()
+
+    #agrego la nueva columna y pongo el split para seleccionar el elemento que quiero de la columna
+    df['year']=df['_c3'].str.split('-',expand=True)[0]
+
+    
+    return df
 
 
 def pregunta_10():
@@ -255,7 +268,20 @@ def pregunta_10():
     3   D                  1:2:3:5:5:7
     4   E  1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
-    return
+    import pandas as pd
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
+    tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
+
+    df=tbl0.copy()
+    df['_c2']=sorted(df['_c2'].apply(lambda x: str(x)))
+    df=df.groupby(['_c1'], as_index=True).agg({'_c2':':'.join})
+
+
+    return df
+    
+   
 
 
 def pregunta_11():
@@ -274,7 +300,18 @@ def pregunta_11():
     38   38      d,e
     39   39    a,d,f
     """
-    return
+    import pandas as pd
+
+    df=tbl1.copy()
+
+    #df['_c4']=df['_c4'].apply(lambda x: str(x))
+    df=df.groupby(['_c0'])[['_c4']].sum()
+    df.reset_index(inplace=True)
+    df['_c4']=[sorted(i) for  i in df['_c4']]
+    #.agg({'_c4':','.join})
+
+   
+    return df
 
 
 def pregunta_12():
