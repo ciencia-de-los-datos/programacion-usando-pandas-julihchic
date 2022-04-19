@@ -274,12 +274,26 @@ def pregunta_10():
     tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
     tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
 
-    df=tbl0.copy()
-    df['_c2']=sorted(df['_c2'].apply(lambda x: str(x)))
-    df=df.groupby(['_c1'], as_index=True).agg({'_c2':':'.join})
+    df1=tbl0.copy()
+    df1['_c2']=df1['_c2'].apply(lambda x: str(x))
+
+    def cadena(df):
+        nums=list(df['_c2'])
+        nums.sort()
+        return ':'.join(nums)
+
+    mi_df=df1.groupby('_c1').apply(cadena)
+
+    df2=df1.drop_duplicates(subset='_c1')
+    l=list(sorted(df2['_c1']))
+
+    n_l=list(mi_df)
+
+    result=pd.DataFrame(list(zip(l,n_l)), columns=['_c1','_c2'])
+    #df['_c2']=sorted(df['_c2'])
+    return result.set_index('_c1')
 
 
-    return df
     
    
 
