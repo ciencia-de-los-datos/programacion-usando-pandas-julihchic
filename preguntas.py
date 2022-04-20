@@ -22,7 +22,15 @@ def pregunta_01():
     40
 
     """
-    return
+    import pandas as pd
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
+    tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
+
+
+    
+    return len(tbl0)
 
 
 def pregunta_02():
@@ -33,7 +41,16 @@ def pregunta_02():
     4
 
     """
-    return
+    import pandas as pd
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
+    tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
+
+    tbl0.columns
+
+    
+    return len(tbl0.columns)
 
 
 def pregunta_03():
@@ -50,7 +67,21 @@ def pregunta_03():
     Name: _c1, dtype: int64
 
     """
-    return
+    import pandas as pd
+
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
+    tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
+
+
+    #utilizo value_counts() para contar las veces que esta cada letra
+    #utilizo sort_index() para ordenar alfabeticamente, puede ser ascending true o false
+    #si quisiera ordenarlos numericamente pongo ascending true o false en los parentesis de value_count()
+    sum_c1= tbl0['_c1'].value_counts().sort_index(ascending=True)
+
+
+    return sum_c1
 
 
 def pregunta_04():
@@ -65,7 +96,18 @@ def pregunta_04():
     E    4.785714
     Name: _c2, dtype: float64
     """
-    return
+    import pandas as pd
+
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
+    tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
+
+    #hago groupby para traer los de _c2  
+    #pongo la funcion luego de los corchetes de la columna a la que se la quiero hacer
+    prom_c2 = tbl0.groupby('_c1')['_c2'].mean()
+
+    return prom_c2
 
 
 def pregunta_05():
@@ -82,8 +124,17 @@ def pregunta_05():
     E    9
     Name: _c2, dtype: int64
     """
-    return
+    import pandas as pd
 
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
+    tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
+
+    #hago groupby para traer los de _c2  
+    #pongo la funcion luego de los corchetes de la columna a la que se la quiero hacer
+    prom_c2 = tbl0.groupby('_c1')['_c2'].max()
+    return prom_c2
 
 def pregunta_06():
     """
@@ -94,7 +145,23 @@ def pregunta_06():
     ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 
     """
-    return
+    import pandas as pd
+
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
+    tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
+
+    #creo una copia de la base
+    data=tbl1.copy('_c4')
+
+    #en la copia pongo en mayusculas los elementos de la columna _c4
+    data['_c4']= data['_c4'].str.upper()
+
+    data
+
+    #los ordeno con sorted y le quito duplicados con .unique
+    return sorted(data['_c4'].unique())
 
 
 def pregunta_07():
@@ -110,7 +177,19 @@ def pregunta_07():
     E    67
     Name: _c2, dtype: int64
     """
-    return
+    import pandas as pd
+
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
+    tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
+
+    #hago groupby para traer los de _c2  
+    #pongo la funcion sum luego de los corchetes de la columna a la que se la quiero hacer
+    prom_c2 = tbl0.groupby('_c1')['_c2'].sum()
+
+    
+    return prom_c2
 
 
 def pregunta_08():
@@ -128,7 +207,20 @@ def pregunta_08():
     39   39   E    5  1998-01-26    44
 
     """
-    return
+    import pandas as pd
+
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
+    tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
+
+    df=tbl0.copy()
+
+    #al df original le creo la columna con la funcion sum y le pongo axis=1 para que aplique la funcion en las columnas
+    df['suma']=df.sum(axis=1)
+
+    
+    return df
 
 
 def pregunta_09():
@@ -146,7 +238,20 @@ def pregunta_09():
     39   39   E    5  1998-01-26  1998
 
     """
-    return
+    import pandas as pd
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
+    tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
+
+    #creo una copia de la tabla
+    df=tbl0.copy()
+
+    #agrego la nueva columna y pongo el split para seleccionar el elemento que quiero de la columna
+    df['year']=df['_c3'].str.split('-',expand=True)[0]
+
+    
+    return df
 
 
 def pregunta_10():
@@ -163,7 +268,34 @@ def pregunta_10():
     3   D                  1:2:3:5:5:7
     4   E  1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
-    return
+    import pandas as pd
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
+    tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
+
+    df1=tbl0.copy()
+    df1['_c2']=df1['_c2'].apply(lambda x: str(x))
+
+    def nueva_lista(df):
+        nums=list(df['_c2'])
+        nums.sort()
+        return ':'.join(nums)
+
+    mi_df=df1.groupby('_c1').apply(nueva_lista)
+
+    df2=df1.drop_duplicates(subset='_c1')
+    l=list(sorted(df2['_c1']))
+
+    n_l=list(mi_df)
+
+    result=pd.DataFrame(list(zip(l,n_l)), columns=['_c1','_c2'])
+    #df['_c2']=sorted(df['_c2'])
+    return result.set_index('_c1')
+
+
+    
+   
 
 
 def pregunta_11():
@@ -182,7 +314,35 @@ def pregunta_11():
     38   38      d,e
     39   39    a,d,f
     """
-    return
+    import pandas as pd
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
+    tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
+
+    #hago copia para crear mi df
+    df1=tbl1.copy()
+    #le aplico la funcion a la columna que quiero ver
+    df1['_c4']=df1['_c4'].apply(lambda x: str(x))
+
+    #creo una funcion para hacer la lista de str ordendada
+    #en el return pongo el caracter por el que van a estar separados los str y el .join para unirlos
+    def nueva_lista(df):
+        letras= list(df['_c4'])
+        letras.sort()
+        return ','.join(letras)
+
+    #creo mi fd co nel groupby y le agrego la funcion
+    mi_df = df1.groupby('_c0').apply(nueva_lista)
+    #quito duplicados y los ordeno en el nuevo df2
+    df2=df1.drop_duplicates(subset='_c0')
+    l=list(sorted(df2['_c0']))
+    #creo mi lista resultante del groupby
+    nuev_l=list(mi_df)
+
+    result=pd.DataFrame(list(zip(l,nuev_l)), columns= ['_c0','_c4'])
+    
+    return result
 
 
 def pregunta_12():
@@ -200,7 +360,37 @@ def pregunta_12():
     38   38                    eee:0,fff:9,iii:2
     39   39                    ggg:3,hhh:8,jjj:5
     """
-    return
+    import pandas as pd
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
+    tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
+
+    df1=tbl2.copy()
+    df1['_c5b']=df1['_c5b'].astype(str)
+    df1['_c5']=df1['_c5a']+':'+df1['_c5b']
+
+
+    df1['_c5']=df1['_c5'].apply(lambda x: str(x))
+
+    #creo una funcion para hacer la lista de str ordendada
+    #en el return pongo el caracter por el que van a estar separados los str y el .join para unirlos
+    def nueva_lista(df):
+        letras= list(df['_c5'])
+        letras.sort()
+        return ','.join(letras)
+
+    #creo mi fd co nel groupby y le agrego la funcion
+    mi_df = df1.groupby('_c0').apply(nueva_lista)
+    #quito duplicados y los ordeno en el nuevo df2
+    df2=df1.drop_duplicates(subset='_c0')
+    l=list(sorted(df2['_c0']))
+    #creo mi lista resultante del groupby
+    nuev_l=list(mi_df)
+
+    result=pd.DataFrame(list(zip(l,nuev_l)), columns= ['_c0','_c5'])
+    
+    return result
 
 
 def pregunta_13():
@@ -217,4 +407,17 @@ def pregunta_13():
     E    275
     Name: _c5b, dtype: int64
     """
-    return
+    import pandas as pd
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
+    tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
+
+    #uno los df
+    df1=pd.merge(tbl0, tbl2, on='_c0')
+    df1
+
+    #hago el groupby con la suma que me piden
+    df=df1.groupby('_c1')['_c5b'].sum()
+    
+    return df
